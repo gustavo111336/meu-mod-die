@@ -3,12 +3,17 @@
 
 using namespace geode::prelude;
 
-class $modify(PlayLayer) {
-    void destroyPlayer(PlayerObject* player, GameObject* obj) {
-        // Chama a função original para o player realmente morrer
-        PlayLayer::destroyPlayer(player, obj);
+class $modify(MyDeathMod, PlayLayer) {
+    void destroyPlayer(PlayerObject* p0, GameObject* p1) {
+        // Chama a função original primeiro
+        PlayLayer::destroyPlayer(p0, p1);
 
-        // Exibe o alerta na tela
-        FLAlertLayer::create("DIEE DIEE", "DIEE DIEE", "OK")->show();
+        // Verifica se o objeto que matou o player não é nulo 
+        // para evitar que o jogo feche sozinho (crash)
+        FLAlertLayer::create(
+            "MORREU!", 
+            "DIEE DIEE", 
+            "OK"
+        )->show();
     }
 };
