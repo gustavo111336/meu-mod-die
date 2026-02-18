@@ -1,18 +1,20 @@
 {
 	"geode": ">=2.0.0",
 	"gd": {
-    "win": "2.2074",
-    "android": "2.2074",
-    "mac": "2.2074",
-    "ios": "2.2074"
-}
-
+		"win": "*",
+		"android": "*",
+		"mac": "*",
+		"ios": "*"
+	},
 	"id": "gustavo.meu-mod-die",
 	"name": "meu-mod-die",
 	"version": "v1.0.0",
 	"developer": "Gustavo",
 	"description": "The mod die",
-	"dependencies": {
-		"geode.node-ids": ">=v1.20.0"
-	}
+	"dependencies": [
+		{
+			"id": "geode.node-ids",
+			"version": ">=v1.20.0"
+		}
+	]
 }
