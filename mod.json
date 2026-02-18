@@ -1,5 +1,5 @@
 {
-	"geode": "4.10.2,
+	"geode": "4.10.2",
 	"gd": {
 		"win": "*",
 		"android": "*",
@@ -10,12 +10,6 @@
 	"name": "meu-mod-die",
 	"version": "v1.0.1",
 	"developer": "Gustavo",
-	"description": "Mod test",
-	"dependencies": [
-    {
-        "id": "geode.devtools",
-        "version": "v1.4.0"
-    }
-]
+	"description": "Mod test"
 
 }
