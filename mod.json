@@ -6,15 +6,9 @@
 		"mac": "*",
 		"ios": "*"
 	},
-	"id": "gustavo.meu-mod-die",
+	"id": "gustavo.meu_mod_die",
 	"name": "meu-mod-die",
 	"version": "v1.0.0",
 	"developer": "Gustavo",
-	"description": "The mod die",
-	"dependencies": [
-		{
-			"id": "geode.node-ids",
-			"version": ">=v1.20.0"
-		}
-	]
+	"description": "The mod die"
 }
