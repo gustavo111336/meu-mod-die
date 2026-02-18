@@ -1,13 +1,15 @@
 #include <Geode/Geode.hpp>
-#include <Geode/modify/PlayLayer.hpp>
+#include <Geode/modify/MenuLayer.hpp>
 
 using namespace geode::prelude;
 
-class $modify(PlayLayer) {
-    void destroyPlayer(PlayerObject* p0, GameObject* p1) {
-        PlayLayer::destroyPlayer(p0, p1);
-
-        // Em vez de alerta que quebra a build, vamos mandar pro console
-        log::info("DIEE DIEE");
-    }
+// Vamos mexer no Menu inicial em vez da morte, só para testar
+class $modify(MenuLayer) {
+	bool init() {
+		if (!MenuLayer::init()) return false;
+		
+		log::info("Mod carregado com sucesso!");
+		
+		return true;
+	}
 };
