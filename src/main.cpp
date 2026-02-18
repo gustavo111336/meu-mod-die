@@ -1,4 +1,3 @@
-
 #include <Geode/Geode.hpp>
 #include <Geode/modify/PlayLayer.hpp>
 
@@ -6,16 +5,12 @@ using namespace geode::prelude;
 
 class $modify(PlayLayer) {
     void destroyPlayer(PlayerObject* p0, GameObject* p1) {
-        // Chama a função original
         PlayLayer::destroyPlayer(p0, p1);
 
-        // Alerta simplificado para evitar erro de FMT
-        auto alert = FLAlertLayer::create(
-            "Morte", 
-            "DIEE DIEE", 
-            "OK"
-        );
-        alert->m_noElasticity = true; // Ajuda a evitar crash em algumas versões
-        alert->show();
+        // Usando strings simples para não ativar o FMT_COMPILE_STRING
+        auto title = std::string("MORREU!");
+        auto message = std::string("DIEE DIEE");
+        
+        FLAlertLayer::create(title.c_str(), message.c_str(), "OK")->show();
     }
 };
