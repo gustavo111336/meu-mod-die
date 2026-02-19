@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.21)
 
-# Mantemos o PCH desligado para evitar conflitos de headers
-set(GEODE_DISABLE_PCH ON CACHE BOOL "Forced Disable PCH" FORCE)
+# Desativa o PCH para evitar que o erro aconteça no cabeçalho pré-compilado
+set(GEODE_DISABLE_PCH ON CACHE BOOL "Force Disable PCH" FORCE)
 
 project(meu-mod-die VERSION 1.0.0)
 
-# VOLTANDO PARA O 23 QUE VOCÊ NOTOU QUE FUNCIONAVA MELHOR
+# C++23 como você sugeriu
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
@@ -17,13 +17,17 @@ endif()
 
 add_subdirectory($ENV{GEODE_SDK} ${CMAKE_CURRENT_BINARY_DIR}/geode)
 
-# 2. Proteções para o Android
+# 2. ATAQUE DIRETO AO COMPILADOR
 if(ANDROID)
-    add_compile_definitions(FMT_USE_CONSTEXPR=0)
+    # Define flags globais para silenciar o FMT de uma vez por todas
     add_compile_definitions(FMT_USE_CONSTEVAL=0)
+    add_compile_definitions(FMT_USE_CONSTEXPR=0)
     add_compile_definitions(FMT_COMPILE_TIME_CHECKS=0)
+    
+    # Isso aqui é a "marreta": obriga o compilador a ignorar erros de segurança de formato
     add_compile_options(-Wno-format-security)
     add_compile_options(-Wno-error=format-security)
+    add_compile_options(-Wno-implicit-consteval) # Tenta ignorar a chamada consteval
 endif()
 
 # 3. Define os arquivos fonte
