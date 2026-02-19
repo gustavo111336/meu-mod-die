@@ -28,4 +28,4 @@ add_library(${PROJECT_NAME} SHARED ${SOURCES})
 setup_geode_mod(${PROJECT_NAME})
 
 # 6. Links extras
-target_link_libraries(${PROJECT_NAME} INTERFACE geode.node-ids)
+target_link_libraries(${PROJECT_NAME} geode.node-ids)
