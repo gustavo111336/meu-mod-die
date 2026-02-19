@@ -30,6 +30,11 @@ setup_geode_mod(
     EXTERNALS 
         geode.node-ids
         geode.loader
+if(ANDROID)
+    add_definitions(-DFMT_USE_CONSTEXPR=0)
+    add_definitions(-DFMT_COMPILE_TIME_CHECKS=0)
+endif()
+
 )
 
 
