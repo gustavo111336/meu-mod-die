@@ -4,10 +4,8 @@
 
 using namespace geode::prelude;
 
-// Variável de controle
 bool g_noclipEnabled = false;
 
-// --- Hook do Noclip ---
 class $modify(PlayerObject) {
     void destroyPlayer(bool p0, bool p1) {
         if (g_noclipEnabled) return; 
@@ -15,7 +13,6 @@ class $modify(PlayerObject) {
     }
 };
 
-// --- Hook do Menu ---
 class $modify(MyMenuLayer, MenuLayer) {
     bool init() {
         if (!MenuLayer::init()) return false;
@@ -33,15 +30,16 @@ class $modify(MyMenuLayer, MenuLayer) {
         return true;
     }
 
-    void onModMenu(CCObject*) {
+    void onModMenu(CCObject* sender) {
         g_noclipEnabled = !g_noclipEnabled;
         
-        // Em vez de criar uma mensagem com o status, vamos usar um título fixo
-        // Isso evita que o compilador tente converter strings
-        FLAlertLayer::create(
-            "MOD STATUS", 
-            "O Noclip foi alternado!", 
-            "OK"
-        )->show();
+        // Em vez de alerta, vamos mudar a cor do botão para dar feedback
+        // Verde = Ativado, Vermelho = Desativado
+        auto btn = static_cast<CCMenuItemSpriteExtra*>(sender);
+        if (g_noclipEnabled) {
+            btn->setColor({0, 255, 0});
+        } else {
+            btn->setColor({255, 0, 0});
+        }
     }
 };
