@@ -1,15 +1,9 @@
 {
-	"geode": "4.10.2",
+	"geode": "3.0.0-beta.2",
 	"sdk": "3.0.0-beta.2",
-	"gd": {
-		"win": "*",
-		"android": "*",
-		"mac": "*",
-		"ios": "*"
-	},
 	"id": "gustavo.meu_mod_die",
 	"name": "Mod Menu Of geode",
-	"version": "v1.0.2",
+	"version": "v1.0.3",
 	"developer": "Gustavo",
 	"description": "My New Menu",
 	"dependencies": [
