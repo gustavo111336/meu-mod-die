@@ -10,25 +10,28 @@ set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 if (NOT DEFINED ENV{GEODE_SDK})
     message(FATAL_ERROR "Unable to find Geode SDK!")
 endif()
+
+# DESATIVAR PCH: Isso impede que o erro aconteça antes das nossas definições
+set(GEODE_DISABLE_PCH ON CACHE INTERNAL "Disable PCH")
+
 add_subdirectory($ENV{GEODE_SDK} ${CMAKE_CURRENT_BINARY_DIR}/geode)
 
-# 2. Correção para o erro de strings no Android
+# 2. Correção TOTAL para o erro de strings no Android
 if(ANDROID)
-    add_definitions(-DFMT_USE_CONSTEXPR=0)
-    add_definitions(-DFMT_COMPILE_TIME_CHECKS=0)
-    # AS DUAS LINHAS NOVAS ESTÃO ABAIXO:
+    add_compile_definitions(FMT_USE_CONSTEXPR=0)
+    add_compile_definitions(FMT_COMPILE_TIME_CHECKS=0)
+    add_compile_definitions(FMT_ENFORCE_COMPILE_STRING=0)
     add_compile_options(-Wno-format-security)
     add_compile_options(-Wno-error=format-security)
 endif()
 
-
 # 3. Define os arquivos fonte
 file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS src/*.cpp)
 
-# 4. CRIA O TARGET (Isso resolve o erro atual!)
+# 4. CRIA O TARGET
 add_library(${PROJECT_NAME} SHARED ${SOURCES})
 
-# 5. Configura o Geode no Target criado
+# 5. Configura o Geode
 setup_geode_mod(${PROJECT_NAME})
 
 # 6. Links extras
