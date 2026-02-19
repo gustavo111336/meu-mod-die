@@ -6,30 +6,17 @@ using namespace geode::prelude;
 class $modify(MyMenuLayer, MenuLayer) {
     bool init() {
         if (!MenuLayer::init()) return false;
-
-        auto rightMenu = this->getChildByID("right-side-menu");
-        
-        if (rightMenu) {
-            auto sprite = CircleButtonSprite::createWithSpriteFrameName("geode.loader/geode-logo-outline.png");
-            auto btn = CCMenuItemSpriteExtra::create(
-                sprite,
-                this,
-                menu_selector(MyMenuLayer::onMyModMenu)
-            );
-
-            btn->setID("my-custom-menu-button");
-            rightMenu->addChild(btn);
-            rightMenu->updateLayout();
+        auto m = this->getChildByID("right-side-menu");
+        if (m) {
+            auto s = CircleButtonSprite::createWithSpriteFrameName("geode.loader/geode-logo-outline.png");
+            auto b = CCMenuItemSpriteExtra::create(s, this, menu_selector(MyMenuLayer::onM));
+            m->addChild(b);
+            m->updateLayout();
         }
-
         return true;
     }
-
-    void onMyModMenu(CCObject*) {
-        FLAlertLayer::create(
-            "GUSTAVO MENU",
-            "Mod carregado com sucesso!",
-            "OK"
-        )->show();
+    void onM(CCObject*) {
+        FLAlertLayer::create("G", "M", "OK")->show();
     }
 };
+l
