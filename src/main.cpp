@@ -7,21 +7,20 @@ class $modify(MyMenuLayer, MenuLayer) {
     bool init() {
         if (!MenuLayer::init()) return false;
 
-        // Pegamos o menu da direita (onde fica o botão "More Games") pelo ID
         auto rightMenu = this->getChildByID("right-side-menu");
+        
+        if (rightMenu) {
+            auto sprite = CircleButtonSprite::createWithSpriteFrameName("geode.loader/geode-logo-outline.png");
+            auto btn = CCMenuItemSpriteExtra::create(
+                sprite,
+                this,
+                menu_selector(MyMenuLayer::onMyModMenu)
+            );
 
-        // Criamos um botão com a logo do Geode
-        auto sprite = CircleButtonSprite::createWithSpriteFrameName("geode.loader/geode-logo-outline.png");
-        auto btn = CCMenuItemSpriteExtra::create(
-            sprite,
-            this,
-            menu_selector(MyMenuLayer::onMyModMenu)
-        );
-
-        // Adicionamos o botão ao menu lateral
-        btn->setID("my-custom-menu-button");
-        rightMenu->addChild(btn);
-        rightMenu->updateLayout();
+            btn->setID("my-custom-menu-button");
+            rightMenu->addChild(btn);
+            rightMenu->updateLayout();
+        }
 
         return true;
     }
@@ -29,8 +28,8 @@ class $modify(MyMenuLayer, MenuLayer) {
     void onMyModMenu(CCObject*) {
         FLAlertLayer::create(
             "GUSTAVO MENU",
-            "Opcao 1: [ATIVADO]\nOpcao 2: [DESATIVADO]",
-            "FECHAR"
+            "Mod carregado com sucesso!",
+            "OK"
         )->show();
     }
 };
