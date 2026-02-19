@@ -1,5 +1,5 @@
 {
-	"geode": "4.10.2",
+	"geode": "3.0.0-beta.1",
 	"gd": {
 		"win": "*",
 		"android": "*",
@@ -7,9 +7,20 @@
 		"ios": "*"
 	},
 	"id": "gustavo.meu_mod_die",
-	"name": "meu-mod-die",
-	"version": "v1.0.1",
+	"name": "Mod Menu Of geode",
+	"version": "v1.0.2",
 	"developer": "Gustavo",
-	"description": "Mod test"
-
+	"description": "My New Menu",
+	"dependencies": [
+		{
+			"id": "geode.loader",
+			"version": "4.10.2",
+			"importance": "required"
+		},
+		{
+			"id": "n00b.node_ids",
+			"version": "v1.0.0",
+			"importance": "required"
+		}
+	]
 }

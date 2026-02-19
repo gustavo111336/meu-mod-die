@@ -1,2 +1,4 @@
-# 1.0.0
-- Edit this file to change your mod's changelog.
+# 1.0.2
+- News
+# 1.0.1
+- The hello world
