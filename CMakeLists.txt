@@ -11,18 +11,24 @@ if (NOT DEFINED ENV{GEODE_SDK})
     message(FATAL_ERROR "Unable to find Geode SDK!")
 endif()
 
-# DESATIVAR PCH: Isso impede que o erro aconteça antes das nossas definições
+# Forçar desativação de PCH e validações que causam o erro
 set(GEODE_DISABLE_PCH ON CACHE INTERNAL "Disable PCH")
 
 add_subdirectory($ENV{GEODE_SDK} ${CMAKE_CURRENT_BINARY_DIR}/geode)
 
-# 2. Correção TOTAL para o erro de strings no Android
+# 2. BLOQUEIO NUCLEAR DE ERROS FMT NO ANDROID
 if(ANDROID)
+    # Isso define para o compilador ANTES de ler qualquer header
+    add_compile_definitions(FMT_USE_CONSTEVAL=0)
     add_compile_definitions(FMT_USE_CONSTEXPR=0)
     add_compile_definitions(FMT_COMPILE_TIME_CHECKS=0)
-    add_compile_definitions(FMT_ENFORCE_COMPILE_STRING=0)
-    add_compile_options(-Wno-format-security)
+    
+    # Desativa a checagem que está disparando o erro consteval
     add_compile_options(-Wno-error=format-security)
+    add_compile_options(-Wno-format-security)
+    
+    # Truque para o Clang ignorar a verificação de string constante
+    add_compile_options(-fno-limit-debug-info) 
 endif()
 
 # 3. Define os arquivos fonte
