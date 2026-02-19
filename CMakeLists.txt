@@ -27,7 +27,10 @@ add_subdirectory($ENV{GEODE_SDK} ${CMAKE_CURRENT_BINARY_DIR}/geode)
 # Set up dependencies, resources, and link Geode.
 setup_geode_mod(
     meu-mod-die
-    EXTERNALS geode.node-ids
+    EXTERNALS 
+        geode.node-ids
+        geode.loader
 )
+
 
 
