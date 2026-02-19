@@ -1,5 +1,5 @@
 {
-	"geode": "3.0.0-beta.1",
+	"geode": "4.10.2",
 	"gd": {
 		"win": "*",
 		"android": "*",
@@ -13,13 +13,8 @@
 	"description": "My New Menu",
 	"dependencies": [
 		{
-			"id": "geode.loader",
-			"version": "4.10.2",
-			"importance": "required"
-		},
-		{
 			"id": "geode.node-ids",
-			"version": "v1.0.0",
+			"version": "v1.22.0",
 			"importance": "required"
 		}
 	]
