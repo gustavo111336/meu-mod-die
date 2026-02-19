@@ -4,13 +4,12 @@
 
 using namespace geode::prelude;
 
-// Variável global para o Noclip
+// Variável global
 bool g_noclipEnabled = false;
 
 // --- Hook para Noclip ---
 class $modify(PlayerObject) {
     void destroyPlayer(bool p0, bool p1) {
-        // Se noclip estiver on, apenas ignoramos a função de morte
         if (g_noclipEnabled) {
             return; 
         }
@@ -18,28 +17,24 @@ class $modify(PlayerObject) {
     }
 };
 
-// --- Interface no Menu Principal ---
+// --- Interface no Menu ---
 class $modify(MyMenuLayer, MenuLayer) {
     bool init() {
         if (!MenuLayer::init()) return false;
 
-        // "right-side-menu" é o ID padrão do Geode para o menu da direita
         auto menu = this->getChildByID("right-side-menu");
         
         if (menu) {
-            // Usando um sprite padrão do jogo para o botão (GJ_checkOn_001.png)
-            auto btnSprite = CCSprite::createWithSpriteFrameName("GJ_checkOn_001.png");
-            
+            // Usando um sprite de círculo simples do Geode
+            auto btnSprite = CircleButtonSprite::createWithSpriteFrameName("geode.loader/geode-logo-outline.png");
             auto menuBtn = CCMenuItemSpriteExtra::create(
                 btnSprite,
                 this,
                 menu_selector(MyMenuLayer::onModMenu)
             );
 
-            menuBtn->setID("noclip-toggle-btn");
+            menuBtn->setID("my-mod-toggle-btn");
             menu->addChild(menuBtn);
-            
-            // Recalcula o posicionamento dos botões no menu lateral automaticamente
             menu->updateLayout();
         }
 
@@ -49,15 +44,15 @@ class $modify(MyMenuLayer, MenuLayer) {
     void onModMenu(CCObject*) {
         g_noclipEnabled = !g_noclipEnabled;
         
-        // O segredo para o Build passar: fmt::format
+        // Criando a string manualmente ANTES de passar para o alerta
+        // Isso evita o erro de template do fmt no Android
         std::string status = g_noclipEnabled ? "ATIVADO" : "DESATIVADO";
-        auto mensagem = fmt::format("Noclip agora esta: <cl>{}</c>", status);
+        std::string mensagem = "Noclip agora esta: " + status;
 
-        auto alert = FLAlertLayer::create(
+        FLAlertLayer::create(
             "GUSTAVO MENU",
-            mensagem, // Geode aceita std::string aqui se formatado via fmt
+            mensagem, 
             "OK"
-        );
-        alert->show();
+        )->show();
     }
 };
