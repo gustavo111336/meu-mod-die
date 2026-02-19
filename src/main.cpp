@@ -4,7 +4,7 @@
 
 using namespace geode::prelude;
 
-// Variável global
+// Variável global simples
 bool g_noclipEnabled = false;
 
 // --- Hook para Noclip ---
@@ -25,7 +25,6 @@ class $modify(MyMenuLayer, MenuLayer) {
         auto menu = this->getChildByID("right-side-menu");
         
         if (menu) {
-            // Usando um sprite de círculo simples do Geode
             auto btnSprite = CircleButtonSprite::createWithSpriteFrameName("geode.loader/geode-logo-outline.png");
             auto menuBtn = CCMenuItemSpriteExtra::create(
                 btnSprite,
@@ -44,10 +43,8 @@ class $modify(MyMenuLayer, MenuLayer) {
     void onModMenu(CCObject*) {
         g_noclipEnabled = !g_noclipEnabled;
         
-        // Criando a string manualmente ANTES de passar para o alerta
-        // Isso evita o erro de template do fmt no Android
-        std::string status = g_noclipEnabled ? "ATIVADO" : "DESATIVADO";
-        std::string mensagem = "Noclip agora esta: " + status;
+        // Usamos const char* para evitar que o Geode tente usar o fmt::format internamente
+        const char* mensagem = g_noclipEnabled ? "Noclip: ATIVADO" : "Noclip: DESATIVADO";
 
         FLAlertLayer::create(
             "GUSTAVO MENU",
