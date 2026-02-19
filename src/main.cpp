@@ -16,8 +16,6 @@ class $modify(MyMenuLayer, MenuLayer) {
                 this,
                 menu_selector(MyMenuLayer::onMyButton)
             );
-
-            btn->setID("my-custom-button");
             menu->addChild(btn);
             menu->updateLayout();
         }
@@ -25,7 +23,8 @@ class $modify(MyMenuLayer, MenuLayer) {
         return true;
     }
 
-    void onMyButton(CCObject*) {
-        FLAlertLayer::create("GUSTAVO", "Mod Funcional!", "OK")->show();
+    void onMyButton(CCObject* sender) {
+        auto alert = FLAlertLayer::create("Info", "Mod Funcionando", "OK");
+        alert->show();
     }
 };
