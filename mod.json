@@ -18,7 +18,7 @@
 			"importance": "required"
 		},
 		{
-			"id": "n00b.node_ids",
+			"id": "geode.node-ids",
 			"version": "v1.0.0",
 			"importance": "required"
 		}
